@@ -47,6 +47,7 @@ PyYAML = "^6.0"
 rich = "^13.4.2"
 Send2Trash = { version = "^1.8.2", extras = ["nativeLib"] }
 simplematch = "^1.4"
+watchfiles = "^0.22.0"
 
 # must be in main dependencies for readthedocs.
 mkdocs = { version = "^1.5.3", optional = true }
