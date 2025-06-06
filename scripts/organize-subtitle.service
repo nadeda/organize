@@ -1,0 +1,14 @@
+[Unit]
+Description=Organize Subtitle Generation Service
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=%h/.local/bin
+ExecStart=%h/.local/bin/organize-subtitle.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target 
