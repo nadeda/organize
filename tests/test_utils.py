@@ -1,4 +1,20 @@
-from organize.utils import ChangeDetector, deep_merge, deep_merge_inplace
+import sys
+
+from organize.utils import (
+    ChangeDetector,
+    deep_merge,
+    deep_merge_inplace,
+    has_executable,
+)
+
+
+def test_has_executable():
+    from uuid import uuid1 as uuid
+
+    present_exe = "dir" if sys.platform.startswith("win") else "ls"
+    assert has_executable(present_exe)
+    absent_exe = f"no-such-executable-{uuid()}"  # random name that won't exist
+    assert not has_executable(absent_exe)
 
 
 def test_changedetector():

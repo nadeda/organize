@@ -11,6 +11,7 @@ from organize.filter import FilterConfig
 from organize.logger import logger
 from organize.output import Output
 from organize.resource import Resource
+from organize.utils import has_executable
 
 
 def _compress_chars(inp: str) -> str:
@@ -40,16 +41,10 @@ def extract_txt(path: Path) -> str:
 @lru_cache(maxsize=1)
 def _pdftotext_available() -> bool:
     # check whether the given path is executable
-    try:
-        subprocess.check_call(
-            ["pdftotext", "-v"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.STDOUT,
-        )
-        return True
-    except subprocess.CalledProcessError:
+    ok = has_executable(name="pdftotext")
+    if not ok:
         logger.warning("pdftotext not available. Falling back to pdfminer library.")
-        return False
+    return ok
 
 
 def _extract_with_pdftotext(path: Path, keep_layout: bool) -> str:
